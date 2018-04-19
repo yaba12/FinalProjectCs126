@@ -1,0 +1,5 @@
+- create the background, the place where the tiles fall.
+- create tiles
+- draw the background and tiles
+- think of how to interact when the bottom level is full.
+- think of how to move the tiles from one place to another.
