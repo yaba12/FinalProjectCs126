@@ -3,3 +3,6 @@
 - draw the background and tiles
 - think of how to interact when the bottom level is full.
 - think of how to move the tiles from one place to another.
+- created shapes
+- added functions for shapes
+- Started on doing the openframeworks portion
