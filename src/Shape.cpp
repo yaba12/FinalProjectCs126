@@ -4,7 +4,7 @@
 #include <time.h>
 #include <vector>
 
-void Shape::create_shapes() {
+void Shape::CreateShapes() {
 	std::vector<std::vector<Tile>> square_shape;
 
 	std::vector<Tile> half_square;
