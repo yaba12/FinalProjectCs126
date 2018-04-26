@@ -12,8 +12,8 @@ public:
 	std::vector<std::vector<Tile>> background_tile;		
 
 	BackGround(int row, int col);								// Creates the background
-	void delete_bottom_row();									// Deletes the bottom row
-	void draw();												// Draws the Background
+	void DeteteRow();									// Deletes the bottom row
+	void draw();										// Draws the Background
 
 
 };
