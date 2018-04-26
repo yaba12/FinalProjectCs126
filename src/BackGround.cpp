@@ -21,7 +21,7 @@ void BackGround::draw() {
 	}
 }
 
-void BackGround::delete_row(int row) {
+void BackGround::DeleteRow(int row) {
 	for (int x_index = row; x_index >= 0; x_index++) {
 		for (int y_index = 0; y_index < cols; y_index++) {
 			if (x_index - 1 >= 0) {
