@@ -108,7 +108,7 @@ void Shape::CreateShapes() {
 	different_shapes.push_back(j_shape);
 	}
 
-std::vector<std::vector<Tile>> Shape::get_random_shape() {
+std::vector<std::vector<Tile>> Shape::GetRandomShape() {
 	srand(time(NULL));
 	int random_number = rand() % different_shapes.size() + 1;
 	return different_shapes[random_number - 1];
