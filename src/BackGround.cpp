@@ -49,7 +49,7 @@ void Background::ChangeBackGroundColor(int x_coo, int y_coo, ofColor new_color) 
 	
 	//Change the color of our current Tile
 	Tile current_tile = GetTileFromCoo(x_coo, y_coo);
-	current_tile.inside_color_ = new_color;
+	current_tile.inside_color = new_color;
 }
 
 void Background::Reset() {
