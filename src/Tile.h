@@ -3,13 +3,13 @@
 
 class Tile {
 public:
-	int x_spawn;
-	int y_spawn;
+	int x_spawn_;
+	int y_spawn_;
 	ofColor stroke;
-	int const width = 20;
-	int const height = 20;
+	ofColor inside_color_;
+	static int const width = 50;
+	static int const height = 50;
 
-	Tile(int x, int y, ofColor outline);				//Creates a new tile
-	~Tile();											//Deletes
+	Tile(int x, int y, ofColor outline, ofColor fill);	//Creates a new tile
 	void draw();										//Draws the Tile
 };
