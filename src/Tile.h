@@ -3,10 +3,10 @@
 
 class Tile {
 public:
-	int x_spawn_;
-	int y_spawn_;
+	int x_spawn;
+	int y_spawn;
 	ofColor stroke;
-	ofColor inside_color_;
+	ofColor inside_color;
 	static int const width = 50;
 	static int const height = 50;
 
