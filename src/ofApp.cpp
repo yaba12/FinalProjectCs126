@@ -181,7 +181,7 @@ void ofApp::SetBlockBottom() {
 			Tile current_tile = Background::GetTileFromCoo(x_coo, y_coo);
 
 			//Change colors
-			if (y_coo == current_tile.y_spawn &&x_coo == current_tile.x_spawn) {
+			if (y_coo == current_tile.y_spawn && x_coo == current_tile.x_spawn) {
 				Background::ChangeBackGroundColor(x_coo, y_coo, random_shape[row_index][col_index].inside_color);
 			}
 		}
