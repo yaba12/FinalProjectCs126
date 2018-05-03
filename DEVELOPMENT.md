@@ -6,3 +6,9 @@
 - created shapes
 - added functions for shapes
 - Started on doing the openframeworks portion
+- Created the Background in openframeworks
+- Created key pressing functions
+- Drew different scenarios
+- implemented collision and setting
+- implemented sound and new games
+- fixed some bugs
