@@ -130,7 +130,7 @@ void Shape::Move(std::vector<std::vector<Tile>> shape) {
 	//Change the current Shape's coordinates
 	for (int row_index = 0; row_index < shape.size(); row_index++) {
 		for (int col_index = 0; col_index < shape[row_index].size(); col_index++) {
-			shape[row_index][col_index].y_spawn_ += Tile::height;
+			shape[row_index][col_index].y_spawn += Tile::height;
 		}
 	}
 }
