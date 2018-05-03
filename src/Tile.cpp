@@ -1,18 +1,20 @@
 #include "Tile.h"
 
-Tile::Tile(int x, int y, ofColor outline) {
-	x_spawn = x;
-	y_spawn = y;
+Tile::Tile(int x, int y, ofColor fill, ofColor outline) {
+	x_spawn_ = x;
+	y_spawn_ = y;
 	stroke = outline;
-}
-
-Tile::~Tile() {
-	delete this;
+	inside_color_ = fill;
 }
 
 void Tile::draw() {
+	ofFill();
+	ofSetColor(inside_color_);
+	ofDrawRectangle(x_spawn_, y_spawn_, width, height);
+	ofNoFill();
 	ofSetColor(stroke);
-	ofDrawRectangle(width, height, x_spawn, y_spawn);
+	ofDrawRectangle(x_spawn_, y_spawn_, width, height);
 }
+
 
 
