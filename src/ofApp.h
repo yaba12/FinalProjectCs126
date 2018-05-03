@@ -16,11 +16,11 @@ class ofApp : public ofBaseApp {
 	};
 
 private:
-	GameState current_state_ = BEGIN;
+	GameState current_state = BEGIN;
 	int const columns = 10;
 	int const rows = 15;
 	Background background;
-	Shape default_shape_;
+	Shape default_shape;
 	bool should_generate_shape = true;
 	std::vector < std::vector<Tile>> random_shape;
 	int x_change = 0;
@@ -41,10 +41,10 @@ public:
 	void DrawPaused();
 	void DrawScore();
 	bool IsAtBottom();						//Checks if the Shape is at the Bottom
-	void SetBlockBottom();				//Sets Block and goes next
+	void SetBlockBottom();					//Sets Block and goes next
 	bool IsAtEdge();						//Checks if the block is at the edge
 	bool CollideWithBlock();				//Checks if the Block touches another
-	void SetBlock();			//Sets block and goes to the next
+	void SetBlock();						//Sets block and goes to the next
 	void Rotate();
 	bool CheckXNegative();					//Checks if Rotate goes into the negative x axis.
 	bool CheckXOver();						//Checks if Rotate goes out of bounds.
