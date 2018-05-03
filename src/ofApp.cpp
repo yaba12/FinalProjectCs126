@@ -8,7 +8,7 @@ void ofApp::setup() {
 	ofSetWindowTitle("Tetris");
 
 	Background::init(width, height);
-	default_shape_.CreateShapes();
+	default_shape.CreateShapes();
 
 	//Play the tetris theme song
 	my_sound.load("C:\\Users\\Bryan\\Desktop\\tetris.mp3.mp3", true);
@@ -19,11 +19,11 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-	if (current_state_ == IN_PROGRESS) {
+	if (current_state == IN_PROGRESS) {
 
 		//Checks if we need a new block
 		if (should_generate_shape) {
-			random_shape = default_shape_.GetRandomShape();
+			random_shape = default_shape.GetRandomShape();
 			should_generate_shape = false;
 
 		}
@@ -41,8 +41,8 @@ void ofApp::update() {
 			} else {
 				for (int row_index = 0; row_index < random_shape.size(); row_index++) {
 					for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
-						random_shape[row_index][col_index].x_spawn_ += x_change;
-						random_shape[row_index][col_index].y_spawn_ += y_change;
+						random_shape[row_index][col_index].x_spawn += x_change;
+						random_shape[row_index][col_index].y_spawn += y_change;
 
 					}
 				}
@@ -52,13 +52,13 @@ void ofApp::update() {
 			if (IsAtEdge()) {
 				for (int row_index = 0; row_index < random_shape.size(); row_index++) {
 					for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
-						random_shape[row_index][col_index].x_spawn_ -= x_change;
+						random_shape[row_index][col_index].x_spawn -= x_change;
 
 					}
 				}
 			}
 			if (IsOver()) {
-				current_state_ = FINISHED;
+				current_state = FINISHED;
 			}
 			int delete_row = CheckLine();
 
@@ -74,17 +74,17 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	if (current_state_ == BEGIN) {
+	if (current_state == BEGIN) {
 		DrawBegin();
 	}
-	if (current_state_ == FINISHED) {
+	if (current_state == FINISHED) {
 		DrawFinished();
 	}
-	if (current_state_ == PAUSED) {
+	if (current_state == PAUSED) {
 		DrawPaused();
 	}
 	background.draw();
-	default_shape_.Draw(random_shape);
+	default_shape.Draw(random_shape);
 	DrawScore();
 }
 
@@ -92,30 +92,30 @@ void ofApp::draw() {
 void ofApp::keyPressed(int key) {
 	int upper_key = toupper(key);
 
-	if (upper_key == 'P' && current_state_ == IN_PROGRESS) {
-		current_state_ = PAUSED;
+	if (upper_key == 'P' && current_state == IN_PROGRESS) {
+		current_state = PAUSED;
 	}
-	else if (upper_key == 'B' && current_state_ == BEGIN) {
-		current_state_ = IN_PROGRESS;
+	else if (upper_key == 'B' && current_state == BEGIN) {
+		current_state = IN_PROGRESS;
 	}
-	else if (upper_key == 'R' && current_state_ == FINISHED) {
-		current_state_ = BEGIN;
+	else if (upper_key == 'R' && current_state == FINISHED) {
+		current_state = BEGIN;
 		Background::Reset();
 		NewGame();
 	}
-	else if (upper_key == 'P' && current_state_ == PAUSED) {
-		current_state_ = IN_PROGRESS;
+	else if (upper_key == 'P' && current_state == PAUSED) {
+		current_state = IN_PROGRESS;
 	}
-	else if (upper_key == OF_KEY_LEFT && current_state_ == IN_PROGRESS) {
+	else if (upper_key == OF_KEY_LEFT && current_state == IN_PROGRESS) {
 		x_change = -Tile::width;
 	}
-	else if (upper_key == OF_KEY_RIGHT && current_state_ == IN_PROGRESS) {
+	else if (upper_key == OF_KEY_RIGHT && current_state == IN_PROGRESS) {
 		x_change = Tile::width;
 	}
-	else if (upper_key == OF_KEY_DOWN && current_state_ == IN_PROGRESS) {
+	else if (upper_key == OF_KEY_DOWN && current_state == IN_PROGRESS) {
 		ofSetFrameRate(50);
 	}
-	else if (upper_key == 'Z' && current_state_ == IN_PROGRESS) {
+	else if (upper_key == 'Z' && current_state == IN_PROGRESS) {
 		Rotate();
 	}
 }
@@ -155,7 +155,7 @@ bool ofApp::IsAtBottom() {
 	//Checks if we are the bottom and if so, return true
 	for (int row_index = 0; row_index < random_shape.size(); row_index++) {
 		for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
-			if (random_shape[row_index][col_index].y_spawn_ >= (height - 1) * Tile::width) {
+			if (random_shape[row_index][col_index].y_spawn >= (height - 1) * Tile::width) {
 				return true;
 			}
 		}
@@ -172,17 +172,17 @@ void ofApp::SetBlockBottom() {
 		for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
 
 			//Checks if we go outside row borders
-			if (random_shape[row_index][col_index].y_spawn_ < 0 || random_shape[row_index][col_index].x_spawn_ < 0) {
-				current_state_ = FINISHED;
+			if (random_shape[row_index][col_index].y_spawn < 0 || random_shape[row_index][col_index].x_spawn < 0) {
+				current_state = FINISHED;
 				break;
 			}
-			int x_coo = random_shape[row_index][col_index].x_spawn_;
-			int y_coo = random_shape[row_index][col_index].y_spawn_;
+			int x_coo = random_shape[row_index][col_index].x_spawn;
+			int y_coo = random_shape[row_index][col_index].y_spawn;
 			Tile current_tile = Background::GetTileFromCoo(x_coo, y_coo);
 
 			//Change colors
-			if (y_coo == current_tile.y_spawn_ &&x_coo == current_tile.x_spawn_) {
-				Background::ChangeBackGroundColor(x_coo, y_coo, random_shape[row_index][col_index].inside_color_);
+			if (y_coo == current_tile.y_spawn &&x_coo == current_tile.x_spawn) {
+				Background::ChangeBackGroundColor(x_coo, y_coo, random_shape[row_index][col_index].inside_color);
 			}
 		}
 	}
@@ -194,8 +194,8 @@ bool ofApp::IsAtEdge() {
 	//Checks if we are outside the column borders
 	for (int row_index = 0; row_index < random_shape.size(); row_index++) {
 		for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
-			if (random_shape[row_index][col_index].x_spawn_ >= (width) * Tile::width ||
-				random_shape[row_index][col_index].x_spawn_ < 0) {
+			if (random_shape[row_index][col_index].x_spawn >= (width) * Tile::width ||
+				random_shape[row_index][col_index].x_spawn < 0) {
 				return true;
 			}
 		}
@@ -209,16 +209,16 @@ bool ofApp::CollideWithBlock() {
 	//Checks if the current block we are on is not of orange color
 	for (int row_index = 0; row_index < random_shape.size(); row_index++) {
 		for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
-			int x_coo = random_shape[row_index][col_index].x_spawn_;
-			int y_coo = random_shape[row_index][col_index].y_spawn_;
+			int x_coo = random_shape[row_index][col_index].x_spawn;
+			int y_coo = random_shape[row_index][col_index].y_spawn;
 
 			if (y_coo < 0 || x_coo < 0) {
-				current_state_ = FINISHED;
+				current_state = FINISHED;
 				break;
 			}
 			Tile current_tile = Background::GetTileFromCoo(x_coo, y_coo);
 
-			if (current_tile.inside_color_ != ofColor::orange) {
+			if (current_tile.inside_color != ofColor::orange) {
 				return true;
 			}
 		}
@@ -232,19 +232,19 @@ void ofApp::SetBlock() {
 	//If the current block we are on is orange, move it back.
 	for (int row_index = 0; row_index < random_shape.size(); row_index++) {
 		for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
-			random_shape[row_index][col_index].y_spawn_ -= y_change;
-			random_shape[row_index][col_index].x_spawn_ -= x_change;
-			int x_coo = random_shape[row_index][col_index].x_spawn_;
-			int y_coo = random_shape[row_index][col_index].y_spawn_;
+			random_shape[row_index][col_index].y_spawn -= y_change;
+			random_shape[row_index][col_index].x_spawn -= x_change;
+			int x_coo = random_shape[row_index][col_index].x_spawn;
+			int y_coo = random_shape[row_index][col_index].y_spawn;
 
 			if (y_coo < 0 || x_coo < 0) {
-				current_state_ = FINISHED;
+				current_state = FINISHED;
 				break;
 			}
-			Tile current_tile = Background::GetTileFromCoo(random_shape[row_index][col_index].x_spawn_, random_shape[row_index][col_index].y_spawn_);
+			Tile current_tile = Background::GetTileFromCoo(x_coo, y_coo);
 			
-			if (y_coo == current_tile.y_spawn_ && x_coo == current_tile.x_spawn_) {
-				Background::ChangeBackGroundColor(x_coo, y_coo, random_shape[row_index][col_index].inside_color_);
+			if (y_coo == current_tile.y_spawn && x_coo == current_tile.x_spawn) {
+				Background::ChangeBackGroundColor(x_coo, y_coo, random_shape[row_index][col_index].inside_color);
 			}
 		}
 	}
@@ -256,10 +256,10 @@ void ofApp::Rotate() {
 
 	for (int row_index = 0; row_index < random_shape.size(); row_index++) {
 		for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
-			int temp_x = random_shape[row_index][col_index].x_spawn_ - starting_point.x_spawn_;
-			int temp_y = random_shape[row_index][col_index].y_spawn_ - starting_point.y_spawn_;
-			random_shape[row_index][col_index].x_spawn_ = temp_y + starting_point.x_spawn_;
-			random_shape[row_index][col_index].y_spawn_ = temp_x + starting_point.y_spawn_;
+			int temp_x = random_shape[row_index][col_index].x_spawn - starting_point.x_spawn;
+			int temp_y = random_shape[row_index][col_index].y_spawn - starting_point.y_spawn;
+			random_shape[row_index][col_index].x_spawn = temp_y + starting_point.x_spawn;
+			random_shape[row_index][col_index].y_spawn = temp_x + starting_point.y_spawn;
 		}
 	}
 
@@ -267,7 +267,7 @@ void ofApp::Rotate() {
 	while (CheckXNegative()) {
 		for (int row_index = 0; row_index < random_shape.size(); row_index++) {
 			for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
-				random_shape[row_index][col_index].x_spawn_ += Tile::width;
+				random_shape[row_index][col_index].x_spawn += Tile::width;
 			}
 		}
 	}
@@ -276,7 +276,7 @@ void ofApp::Rotate() {
 	while (CheckXOver()) {
 		for (int row_index = 0; row_index < random_shape.size(); row_index++) {
 			for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
-				random_shape[row_index][col_index].x_spawn_ -= Tile::width;
+				random_shape[row_index][col_index].x_spawn -= Tile::width;
 			}
 		}
 	}
@@ -289,7 +289,7 @@ bool ofApp::CheckXNegative() {
 	//Checks to see if any Tiles in Shapes are outside the borders
 	for (int row_index = 0; row_index < random_shape.size(); row_index++) {
 		for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
-			if (random_shape[row_index][col_index].x_spawn_ < 0) {
+			if (random_shape[row_index][col_index].x_spawn < 0) {
 				return true;
 			}
 		}
@@ -303,7 +303,7 @@ bool ofApp::CheckXOver() {
 	//Checks to see if any Tiles in Shapes are outside the borders
 	for (int row_index = 0; row_index < random_shape.size(); row_index++) {
 		for (int col_index = 0; col_index < random_shape[row_index].size(); col_index++) {
-			if (random_shape[row_index][col_index].x_spawn_ >= columns * Tile::width) {
+			if (random_shape[row_index][col_index].x_spawn >= columns * Tile::width) {
 				return true;
 			}	
 		}
@@ -319,7 +319,7 @@ int ofApp::CheckLine() {
 		bool full_row = true;
 
 		for (int col_index = 0; col_index < Background::background_tile.size() ; col_index++) {
-			if (Background::background_tile[col_index][row_index].inside_color_ == ofColor::orange) {
+			if (Background::background_tile[col_index][row_index].inside_color == ofColor::orange) {
 				full_row = false;
 			}
 		}
@@ -333,7 +333,7 @@ int ofApp::CheckLine() {
 //--------------------------------------------------------------
 bool ofApp::IsOver() {
 	for (int row_index = 0; row_index < Background::background_tile.size(); row_index++) {
-		if (Background::background_tile[row_index][0].inside_color_ != ofColor::orange) {
+		if (Background::background_tile[row_index][0].inside_color != ofColor::orange) {
 			return true;
 		}
 	}
